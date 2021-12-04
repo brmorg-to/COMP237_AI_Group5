@@ -18,7 +18,7 @@ from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.model_selection import cross_val_score
 import re
-import string
+
 
 
 plt.style.use('seaborn-dark')
@@ -79,16 +79,7 @@ posts_combined.info()
 #Function to remove any undesired extra space between the words
 def clean_text_round(text):
    
-# =============================================================================
-#     text = text.lower()
-#     text = re.sub('\[.*\]', ' ', text)
-#     text = re.sub('[%s]' % re.escape(string.punctuation), ' ', text)
-#     text = re.sub('\w*\d\w*', ' ', text)
-#     text = re.sub('['' “” ... •]', ' ', text)
-#     text = re.sub('\n', '', text)
-# =============================================================================
     text = re.sub(' +', ' ', text)
-    # text = text.replace(u'\xa0', u'')
     return text
 
 
