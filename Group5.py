@@ -186,6 +186,60 @@ plt.title('Confusion matrix - Naive Bayes',fontsize=20)
 plt.ylabel('Actual label')
 plt.xlabel('Predicted label')
 
+#Create a new list of posts to test the model
+input_data = [
+    'That is a really lovely song',
+    'Come and visit my new website I have the lowest prices anywhere!!!!!!!!!',
+    'This song takes me away to a beautiful place everytime I hear it',
+    'da song is fo real. fo sho sho, not fo play play.',
+    'Want the best price click here?',
+    'Want the best price click here for a deal',
+    'Want the best price click here for savings',
+    'Want the best price click here, for deals and savings',
+    'Want the best price click here for deals and savings and visit my website',
+    'Vist my site',
+    'deal, price, savings',
+    'Shakira come to my auto shop you write the best music and i will give a good record deal. This song is amazing price if you click here',
+    'Visit my site Shakira your songs are so great',
+    'Come to my site Shakira your songs are so great',
+    'Shakira has outdone herself with this one.... Excellent work!'
+    ]
+
+#Set the labels for the newly created test set
+target_data = [0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0]
+
+#Transform the new test set with Count Vectorizer and TfIdf
+input_data_transform = cv.transform(input_data)
+
+input_data_tfidf = tfidf.transform(input_data_transform)
+
+#Second round of predictions
+predictions_round2 = classifier.predict(input_data_tfidf)
+
+print(predictions_round2)
+
+#Classification report
+print(classification_report(target_data, predictions_round2))
+
+#Confusion Matrix
+cf_matrix_round2 = confusion_matrix(target_data, predictions_round2)
+print(cf_matrix_round2)
+
+#Plot the confusion Matrix
+class_names=[0,1]
+fig, ax = plt.subplots(figsize=(10,6))
+tick_marks = np.arange(len(class_names))
+plt.xticks(tick_marks, class_names)
+plt.yticks(tick_marks, class_names)
+# create heatmap
+sns.heatmap(cf_matrix_round2, annot=True,cmap="PuBu" ,fmt='g')
+ax.set_ylim([0,2])
+ax.xaxis.set_label_position("top")
+plt.tight_layout()
+plt.title('Confusion matrix - Naive Bayes',fontsize=20)
+plt.ylabel('Actual label')
+plt.xlabel('Predicted label')
+
 
 '''precision means what percentage of the positive predictions made were actually correct.
 
